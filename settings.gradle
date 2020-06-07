@@ -1,0 +1,3 @@
+rootProject.name='AppConnection'
+include ':app'
+include ':conn'
