@@ -2,23 +2,15 @@ package com.kingskys.appconnection;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.BroadcastReceiver;
-import android.content.Context;
-import android.content.Intent;
-import android.content.IntentFilter;
 import android.os.Bundle;
 import android.os.RemoteException;
-import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 
 import com.kingskys.conn.ConnClient;
-import com.kingskys.conn.ConnClientListener;
-import com.kingskys.conn.ConnService;
 
-import java.lang.ref.WeakReference;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeoutException;
 
@@ -76,7 +68,7 @@ public class MainActivity extends AppCompatActivity {
     public void onResume() {
         super.onResume();
 
-        log("onResume() service count = " + ConnService.iCount);
+//        log("onResume() service count = " + ConnService.iCount);
         updateOnlines();
         register();
         request();

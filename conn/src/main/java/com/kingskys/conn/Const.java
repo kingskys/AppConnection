@@ -1,6 +1,6 @@
 package com.kingskys.conn;
 
-public class Const {
+class Const {
     // 消息
     static final int MSG_TYPE_MSG = 0x01;
     // 上线

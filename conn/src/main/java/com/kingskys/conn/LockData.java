@@ -6,14 +6,14 @@ import java.util.concurrent.FutureTask;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
 
-public class LockData<T> {
+class LockData<T> {
 
     private final Object mLock = new Object();
     private boolean mHaveResult = false;
     private T mData = null;
-    FutureTask<T> mTask = null;
+    private FutureTask<T> mTask = null;
 
-    public LockData() {
+    LockData() {
         mTask = createTask();
         new Thread(mTask).start();
     }
@@ -33,11 +33,11 @@ public class LockData<T> {
 
     }
 
-    public T get(long timeout, TimeUnit unit) throws InterruptedException, ExecutionException, TimeoutException {
+    T get(long timeout, TimeUnit unit) throws InterruptedException, ExecutionException, TimeoutException {
         return mTask.get(timeout, unit);
     }
 
-    public void set(T value) {
+    void set(T value) {
         mData = value;
         mHaveResult = true;
         unlock();

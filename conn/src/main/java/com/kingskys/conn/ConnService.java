@@ -17,14 +17,12 @@ public class ConnService extends Service {
     private static ReceiveHandler mReceiveHandler = new ReceiveHandler();
     private static Messenger mMessenger = new Messenger(mReceiveHandler);
 
-    public static int iCount = 0;
-
     public ConnService() {
     }
 
     @Override
     public IBinder onBind(Intent intent) {
-        log("onBind");
+//        log("onBind");
         return mMessenger.getBinder();
     }
 

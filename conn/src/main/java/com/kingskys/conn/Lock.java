@@ -7,7 +7,7 @@ import java.util.concurrent.FutureTask;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
 
-public class Lock {
+class Lock {
     private final Object mLock = new Object();
     private Boolean mData = null;
 
@@ -15,7 +15,7 @@ public class Lock {
         Log.e("AppConn", msg);
     }
 
-    public void lock(long timeout, TimeUnit unit) throws InterruptedException, TimeoutException {
+    void lock(long timeout, TimeUnit unit) throws InterruptedException, TimeoutException {
         FutureTask<Boolean> task = new FutureTask<Boolean>(new Callable<Boolean>() {
             @Override
             public Boolean call() throws Exception {
@@ -38,12 +38,12 @@ public class Lock {
         }
     }
 
-    public void unlock() {
+    void unlock() {
         mData = true;
         resume();
     }
 
-    public void reset() {
+    void reset() {
         mData = null;
     }
 

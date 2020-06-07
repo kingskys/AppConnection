@@ -7,13 +7,13 @@ import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
 
-public class LockDataManager {
+class LockDataManager {
 
     private static long preTime = 0;
     private static long idIdx = 0;
     private static final Object idLock = new Object();
 
-    public static String getUniqueId() {
+    static String getUniqueId() {
         synchronized (idLock) {
             long now = System.currentTimeMillis();
             if (now == preTime) {
@@ -37,7 +37,7 @@ public class LockDataManager {
         }
     }
 
-    public void setLockOk(String uid, String v) {
+    void setLockOk(String uid, String v) {
         synchronized (mLocks) {
             LockData<String> lockData = mLocks.get(uid);
             if (lockData != null) {
@@ -52,7 +52,7 @@ public class LockDataManager {
         }
     }
 
-    public String get(String uid, long timeout) throws InterruptedException, ExecutionException, TimeoutException {
+    String get(String uid, long timeout) throws InterruptedException, ExecutionException, TimeoutException {
         LockData<String> lockData = addLock(uid);
         try {
             return lockData.get(timeout, TimeUnit.SECONDS);

@@ -21,12 +21,11 @@ import java.util.concurrent.TimeoutException;
 
 class ConnClientImp {
 
-
     static boolean mIsOnline = false;
 
     static ConnClientListener mListener = null;
 
-    static final ArrayList<String> mClientIds = new ArrayList<>();
+    private static final ArrayList<String> mClientIds = new ArrayList<>();
 
     static String mClientId = "";
     static String appName = "";
@@ -55,12 +54,6 @@ class ConnClientImp {
     }
 
     private static Messenger mReceiveMessenger = new Messenger(new ConnHandler());
-
-//    private static Conn.OnReceivedCallback mCallback = null;
-//
-//    public interface OnReceivedCallback {
-//        void onReceived(String data);
-//    }
 
     private static class ConnHandler extends Handler {
         @Override
@@ -226,16 +219,15 @@ class ConnClientImp {
         log("sendOnline");
 
         send(Const.MSG_TYPE_ONLINE, null, null, null);
-
     }
 
     /**
      * 注意：不要在主线程调用
-     * @param data
-     * @param action
+     * @param data 发送的数据
+     * @param action 数据分类
      * @param timeout 设置超时时间，单位秒
-     * @return
-     * @throws RemoteException
+     * @return 其它客户端返回的消息
+     * @throws RemoteException 断线异常
      */
     static String request(String data, String action, long timeout) throws RemoteException, InterruptedException, ExecutionException, TimeoutException {
         try {
@@ -336,7 +328,7 @@ class ConnClientImp {
     private static void waitOnline() throws InterruptedException {
         if (!mIsOnline) {
             try {
-                mOnlineLock.addLock();
+                mOnlineLock.addLock(30000);
             } catch (InterruptedException e) {
                 log("等待上线，操作被打断");
                 throw e;
@@ -350,9 +342,7 @@ class ConnClientImp {
         mOnlineLock.unLock();
     }
 
-
-
     private static void log(String msg) {
-        Log.e("AppConn_ConnClient_" + appName, "[" + mClientId + "]: " + msg);
+        Log.e("AppConn_ConnClient_" + mClientId, "[" + mClientId + "]: " + msg);
     }
 }
